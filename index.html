@@ -4,10 +4,8 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>WorkCompass API Reference</title>
 
-    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -16,11 +14,11 @@
   background-color: #272822;
 }
 .highlight .err {
-  color: #151515;
-  background-color: #ac4142;
+  color: #272822;
+  background-color: #f92672;
 }
 .highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
-  color: #505050;
+  color: #75715e;
 }
 .highlight .cp {
   color: #f4bf75;
@@ -29,45 +27,45 @@
   color: #f4bf75;
 }
 .highlight .o, .highlight .ow {
-  color: #d0d0d0;
+  color: #f8f8f2;
 }
 .highlight .p, .highlight .pi {
-  color: #d0d0d0;
+  color: #f8f8f2;
 }
 .highlight .gi {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .gd {
-  color: #ac4142;
+  color: #f92672;
 }
 .highlight .gh {
-  color: #6a9fb5;
-  background-color: #151515;
+  color: #66d9ef;
+  background-color: #272822;
   font-weight: bold;
 }
 .highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
-  color: #aa759f;
+  color: #ae81ff;
 }
 .highlight .kc {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .kt {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .kd {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .sr {
-  color: #75b5aa;
+  color: #a1efe4;
 }
 .highlight .si {
-  color: #8f5536;
+  color: #cc6633;
 }
 .highlight .se {
-  color: #8f5536;
+  color: #cc6633;
 }
 .highlight .nn {
   color: #f4bf75;
@@ -79,31 +77,32 @@
   color: #f4bf75;
 }
 .highlight .na {
-  color: #6a9fb5;
+  color: #66d9ef;
 }
 .highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .ss {
-  color: #90a959;
+  color: #a6e22e;
 }
     </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar.png" />
+        <img src="images/navbar.png" alt="Navbar" />
       </span>
     </a>
     <div class="tocify-wrapper">
-      <img src="images/logo.png" />
+      <img src="images/logo.png" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -111,177 +110,592 @@
         <ul class="search-results"></ul>
       <div id="toc">
       </div>
-        <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
-        </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id="introduction">Introduction</h1>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Content-Type: application/vnd.api+json"</span> -H <span class="s2">"Accept: application/vnd.api+json; version=2"</span>
+</code></pre><pre class="highlight ruby"><code><span class="n">request</span><span class="p">.</span><span class="nf">content_type</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Accept"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json; version=2"</span>
+</code></pre>
+<p>The WorkCompass API allows you to write applications which can access
+WorkCompass data. It is organised around REST and expects data in the <a href="http://jsonapi.org">JSON
+API</a> format. Authentication is handled via an access token over
+HTTPS and HTTP responses and JSON API error objects are used to indicate errors.</p>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Because all communication is via JSON API formatted JSON, the
+<code class="prettyprint">application/vnd.api+json</code> mime type must be specified in in <code class="prettyprint">Content-Type</code> and
+<code class="prettyprint">Accept</code> HTTP headers (see example in sidebar).</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>The API will default to the latest version of the API available unless you
+specify a version in the <code class="prettyprint">Accept</code> header. The current is version <code class="prettyprint">2</code> but that
+may change in the future.</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
+<p>Currently the API supports creating, updating and archiving people records.
+These operations can be performed one at a time or multiple people records can
+be manipulated in one request.</p>
 
 <h1 id="authentication">Authentication</h1>
-
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Token token=abcd1234"</span>
+</code></pre><pre class="highlight ruby"><code><span class="n">request</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Token token=abcd1234"</span>
 </code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p>All API requests require an access token. (Contact WorkCompass to receive one.)</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<p>The API expects the access token to be included in the header of all requests
+like so:</p>
 
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+<p><code class="prettyprint">Authorization: Token token=abcd1234</code></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You should replace <code>abcd1234</code> with your organisation&rsquo;s API access
+token.
 </aside>
 
-<h1 id="kittens">Kittens</h1>
-
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<h1 id="url">URL</h1>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>An example of using the API URL with all necessary headers</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Token token=abcd1234"</span> <span class="se">\</span>
+     -H <span class="s2">"Accept: application/vnd.api+json; version=2"</span> <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/vnd.api+json"</span> <span class="se">\</span>
+     https://example.cognitohrm.com/api/
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
+<span class="nb">require</span> <span class="s1">'uri'</span>
 
-<p>This endpoint retrieves all kittens.</p>
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s2">"https://example.cognitohrm.com/api/"</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Get</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">content_type</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Token token=abcd1234"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Accept"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json; version=2"</span>
 
-<h3 id="http-request">HTTP Request</h3>
+<span class="n">req_options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">use_ssl: </span><span class="n">uri</span><span class="p">.</span><span class="nf">scheme</span> <span class="o">==</span> <span class="s2">"https"</span><span class="p">,</span>
+<span class="p">}</span>
 
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
+<span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">start</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">hostname</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">,</span> <span class="n">req_options</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
+  <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">end</span>
 
-<h3 id="query-parameters">Query Parameters</h3>
+<span class="c1"># response.code</span>
+<span class="c1"># response.body</span>
+</code></pre>
+<p>You can access the WorkCompass API on the same subdomain that you access the
+WorkCompass web app on. For example, if you you access the web app on
+<code class="prettyprint">https://example.cognitohrm.com</code> then you will access the API at
+<code class="prettyprint">https://example.cognitohrm.com/api/</code>.</p>
 
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<aside class="notice">
+You should replace <code>example</code> with your subdomain.
 </aside>
 
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<aside class="notice">
+All communication with WorkCompass is via HTTPS.
+</aside>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<h1 id="people">People</h1>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<p>People records can be created, updated or deleted via the API. All data should
+be sent to the API in the people object format presented below (with the
+exception of archiving people records which does not require a JSON payload).</p>
+
+<h2 id="person-object">Person Object</h2>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>An example of a single person record in JSON API format</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+   </span><span class="nt">"data"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"people"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"42AUQ"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"attributes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Morty Smith"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"email"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"morty@example.com"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"authorisation"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"division"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"House"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"function"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Teenager"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"location"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Anywhere/Anytime"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"job-title"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Sidekick"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"job-description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Reluctantly follow Rick"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"relationships"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"manager"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"data"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+               </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"people"</span><span class="p">,</span><span class="w">
+               </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"17BCC"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<blockquote>
+<p>An example of multiple people in JSON API format</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"people"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"42AUQ"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"attributes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Morty Smith"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"email"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"morty@example.com"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"authorisation"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"division"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"House"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"function"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Teenager"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"location"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Anywhere/Anytime"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"job-title"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Sidekick"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"job-description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Reluctantly follow Rick"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"relationships"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"manager"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"data"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"people"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"17BCC"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"people"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"29BVD"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"attributes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"email"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"rick@example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"location"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Anywhere/Anytime"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"authorisation"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"manager"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"division"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Garage"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"function"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Scientist"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Rick Sanchez"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"job-title"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Mad Scientist"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"job-description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Doing mad science"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The expected format is a JSON API object with a <code class="prettyprint">data</code> key. The value of the
+<code class="prettyprint">data</code> key can either be a single person object or an array of person objects
+(see sidebar).</p>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<p>A manager can be specified by including a <code class="prettyprint">relationships.manager</code> object with
+the appropriate unique id (e.g. employee number).</p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-
-<h3 id="url-parameters">URL Parameters</h3>
+<p>Each person object has the following attributes:</p>
 
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Attribute</th>
 <th>Description</th>
+<th>Required</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>type</td>
+<td>must be set to <code class="prettyprint">people</code></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>id</td>
+<td>unique id for the person at your organisation (e.g. employee number)</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>attributes.name</td>
+<td>the person&rsquo;s full name</td>
+<td>except for delete</td>
+</tr>
+<tr>
+<td>attributes.email</td>
+<td>email address of the person</td>
+<td>except for delete</td>
+</tr>
+<tr>
+<td>attributes.authorisation</td>
+<td>the authorisation level of the person in WorkCompass. Can be one of <ul><li><code class="prettyprint">employee</code></li><li><code class="prettyprint">manager</code></li><li><code class="prettyprint">divisional_admin</code></li><li><code class="prettyprint">admin</code></li></ul></td>
+<td>except for delete</td>
+</tr>
+<tr>
+<td>attributes.division</td>
+<td>Person&rsquo;s division or work group in your organisation</td>
+<td></td>
+</tr>
+<tr>
+<td>attributes.location</td>
+<td>Person&rsquo;s physical location</td>
+<td></td>
+</tr>
+<tr>
+<td>attributes.function</td>
+<td>Person&rsquo;s job function</td>
+<td></td>
+</tr>
+<tr>
+<td>attributes.job-title</td>
+<td>Person&rsquo;s job title</td>
+<td></td>
+</tr>
+<tr>
+<td>attributes.job-description</td>
+<td>Longer description of person&rsquo;s job</td>
+<td></td>
+</tr>
+<tr>
+<td>relationships.manager.data.type</td>
+<td>must be set to <code class="prettyprint">people</code></td>
+<td>if specifying relationship</td>
+</tr>
+<tr>
+<td>relationships.manager.data.id</td>
+<td>Unique id for this person&rsquo;s manager (e.g manager&rsquo;s employee number)</td>
+<td>if specifying relationship</td>
 </tr>
 </tbody></table>
+
+<h2 id="creating-people">Creating People</h2>
+
+<h3 id="creating-a-single-person-record">Creating a single person record</h3>
+
+<blockquote>
+<p>Example of creating a single person record</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Token token=abcd1234"</span> <span class="se">\</span>
+     -H <span class="s2">"Accept: application/vnd.api+json; version=2"</span> <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/vnd.api+json"</span> <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -d <span class="s1">'{ "data": { "type": "people", "id": "42AUQ", "attributes": { "name": "Morty Smith", "email": "morty@example.com", "authorisation": "employee" } } }'</span> <span class="se">\</span>
+     https://example.cognitohrm.com/api/people/
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
+<span class="nb">require</span> <span class="s1">'uri'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s2">"https://example.cognitohrm.com/api/people/"</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">content_type</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Token token=abcd1234"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Accept"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json; version=2"</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">body</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">dump</span><span class="p">({</span>
+  <span class="s2">"data"</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="s2">"type"</span> <span class="o">=&gt;</span> <span class="s2">"people"</span><span class="p">,</span>
+    <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="s2">"42AUQ"</span><span class="p">,</span>
+    <span class="s2">"attributes"</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Morty Smith"</span><span class="p">,</span>
+      <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"morty@example.com"</span><span class="p">,</span>
+      <span class="s2">"authorisation"</span> <span class="o">=&gt;</span> <span class="s2">"employee"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="n">req_options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">use_ssl: </span><span class="n">uri</span><span class="p">.</span><span class="nf">scheme</span> <span class="o">==</span> <span class="s2">"https"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">start</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">hostname</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">,</span> <span class="n">req_options</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
+  <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># response.code</span>
+<span class="c1"># response.body</span>
+</code></pre>
+<h4 id="http-request">HTTP Request</h4>
+
+<p><code class="prettyprint">POST /api/people</code></p>
+
+<h3 id="creating-multiple-people-in-a-batch-request">Creating multiple people in a batch request</h3>
+
+<blockquote>
+<p>Example of creating a multiple people in one request</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Token token=abcd1234"</span> <span class="se">\</span>
+     -H <span class="s2">"Accept: application/vnd.api+json; version=2"</span> <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/vnd.api+json"</span> <span class="se">\</span>
+     -X POST <span class="se">\</span>
+     -d <span class="s1">'{ "data": [ { "type": "people", "id": "42AUQ", "attributes": { "name": "Morty Smith", "email": "morty@example.com", "authorisation": "employee" } }, { "type": "people", "id": "17BCC", "attributes": { "name": "Rick Sanchez", "email": "rick@example.com", "authorisation": "manager" } } ] }'</span> <span class="se">\</span>
+     https://example.cognitohrm.com/api/people/
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
+<span class="nb">require</span> <span class="s1">'uri'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s2">"https://example.cognitohrm.com/api/people/"</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">content_type</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Token token=abcd1234"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Accept"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json; version=2"</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">body</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">dump</span><span class="p">({</span>
+  <span class="s2">"data"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"type"</span> <span class="o">=&gt;</span> <span class="s2">"people"</span><span class="p">,</span>
+      <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="s2">"42AUQ"</span><span class="p">,</span>
+      <span class="s2">"attributes"</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Morty Smith"</span><span class="p">,</span>
+        <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"morty@example.com"</span><span class="p">,</span>
+        <span class="s2">"authorisation"</span> <span class="o">=&gt;</span> <span class="s2">"employee"</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"type"</span> <span class="o">=&gt;</span> <span class="s2">"people"</span><span class="p">,</span>
+      <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="s2">"17BCC"</span><span class="p">,</span>
+      <span class="s2">"attributes"</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Rick Sanchez"</span><span class="p">,</span>
+        <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"rick@example.com"</span><span class="p">,</span>
+        <span class="s2">"authorisation"</span> <span class="o">=&gt;</span> <span class="s2">"manager"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">req_options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">use_ssl: </span><span class="n">uri</span><span class="p">.</span><span class="nf">scheme</span> <span class="o">==</span> <span class="s2">"https"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">start</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">hostname</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">,</span> <span class="n">req_options</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
+  <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># response.code</span>
+<span class="c1"># response.body</span>
+</code></pre>
+<p>Note that if there is an error creating any records, the entire batch operation
+will fail. Any errors encountered will be returned as an error object (see the
+<a href="#errors">errors section</a> below).</p>
+
+<h4 id="http-request">HTTP Request</h4>
+
+<p><code class="prettyprint">POST /api/people</code></p>
+
+<h2 id="updating-people">Updating People</h2>
+
+<p>Any attributes sent in an update request will be modified on the person record
+if different from what is already there. Any attributes not supplied will not be
+modified (so there is no danger in sending complete person records to the API,
+it will only change what is necessary).</p>
+
+<p>If you would like to delete an attribute for a person (e.g. remove their job
+title) you can set it to <code class="prettyprint">null</code> in the JSON object. If you would like to remove
+a person&rsquo;s manager from the person&rsquo;s record, you can set the
+<code class="prettyprint">relationships.manager.data</code> attribute to <code class="prettyprint">null</code>.</p>
+
+<p>The required fields (see table in <a href="#people">person object section</a>) can only be
+modified, never deleted.</p>
+
+<p>If an account is active on WorkCompass (i.e. has signed in and used the web app
+in the past), changing their email address will result in them getting an email
+to confirm their new address.</p>
+
+<h3 id="updating-a-single-person-record">Updating a single person record</h3>
+
+<blockquote>
+<p>Example of updating a single person record</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Token token=abcd1234"</span> <span class="se">\</span>
+     -H <span class="s2">"Accept: application/vnd.api+json; version=2"</span> <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/vnd.api+json"</span> <span class="se">\</span>
+     -X PUT <span class="se">\</span>
+     -d <span class="s1">'{ "data": { "type": "people", "id": "42AUQ", "attributes": { "job-title": "Sidekick" } } }'</span> <span class="se">\</span>
+     https://example.cognitohrm.com/api/people/42AUQ
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
+<span class="nb">require</span> <span class="s1">'uri'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s2">"https://example.cognitohrm.com/api/people/42AUQ"</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Put</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">content_type</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Token token=abcd1234"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Accept"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json; version=2"</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">body</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">dump</span><span class="p">({</span>
+  <span class="s2">"data"</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="s2">"type"</span> <span class="o">=&gt;</span> <span class="s2">"people"</span><span class="p">,</span>
+    <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="s2">"42AUQ"</span><span class="p">,</span>
+    <span class="s2">"attributes"</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="s2">"job-title"</span> <span class="o">=&gt;</span> <span class="s2">"Sidekick"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="n">req_options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">use_ssl: </span><span class="n">uri</span><span class="p">.</span><span class="nf">scheme</span> <span class="o">==</span> <span class="s2">"https"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">start</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">hostname</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">,</span> <span class="n">req_options</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
+  <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># response.code</span>
+<span class="c1"># response.body</span>
+</code></pre>
+<p>A person&rsquo;s <code class="prettyprint">authorisation</code> can not be changed to <code class="prettyprint">employee</code> if they currently
+have people reporting to them in WorkCompass. You will have to move the
+manager&rsquo;s reports to another manager before updating the authorisation (or use a
+a batch operation below to move the reports and update the old manager&rsquo;s
+authorisation in one request).</p>
+
+<h4 id="http-request">HTTP Request</h4>
+
+<p><code class="prettyprint">PUT /api/people/&lt;PERSON_ID&gt;</code></p>
+
+<h3 id="updating-multiple-people-in-a-batch-request">Updating multiple people in a batch request</h3>
+
+<blockquote>
+<p>Example of updating a multiple people in one request</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Token token=abcd1234"</span> <span class="se">\</span>
+     -H <span class="s2">"Accept: application/vnd.api+json; version=2"</span> <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/vnd.api+json"</span> <span class="se">\</span>
+     -X PUT <span class="se">\</span>
+     -d <span class="s1">'{ "data": [ { "type": "people", "id": "42AUQ", "attributes": { "authorisation": "admin" } }, { "type": "people", "id": "17BCC", "attributes": { "authorisation": "employee", "job-title": null } } ] }'</span> <span class="se">\</span>
+     https://example.cognitohrm.com/api/people/
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
+<span class="nb">require</span> <span class="s1">'uri'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s2">"https://example.cognitohrm.com/api/people/"</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Put</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">content_type</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Token token=abcd1234"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Accept"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json; version=2"</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">body</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">dump</span><span class="p">({</span>
+  <span class="s2">"data"</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"type"</span> <span class="o">=&gt;</span> <span class="s2">"people"</span><span class="p">,</span>
+      <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="s2">"42AUQ"</span><span class="p">,</span>
+      <span class="s2">"attributes"</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="s2">"authorisation"</span> <span class="o">=&gt;</span> <span class="s2">"admin"</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"type"</span> <span class="o">=&gt;</span> <span class="s2">"people"</span><span class="p">,</span>
+      <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="s2">"17BCC"</span><span class="p">,</span>
+      <span class="s2">"attributes"</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="s2">"authorisation"</span> <span class="o">=&gt;</span> <span class="s2">"employee"</span><span class="p">,</span>
+        <span class="s2">"job-title"</span> <span class="o">=&gt;</span> <span class="kp">nil</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">req_options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">use_ssl: </span><span class="n">uri</span><span class="p">.</span><span class="nf">scheme</span> <span class="o">==</span> <span class="s2">"https"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">start</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">hostname</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">,</span> <span class="n">req_options</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
+  <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># response.code</span>
+<span class="c1"># response.body</span>
+</code></pre>
+<p>Note that if there is an error updating any records, the entire batch operation
+will fail. Any errors encountered will be returned as an error object (see the
+<a href="#errors">errors section</a> below).</p>
+
+<h4 id="http-request">HTTP Request</h4>
+
+<p><code class="prettyprint">PUT /api/people</code></p>
+
+<h2 id="archiving-people">Archiving People</h2>
+
+<p>Archiving people does not require you to send a person object, the
+person record will be looked up via the unique ids in the URL.</p>
+
+<p>There is currently no way to &ldquo;un-archive&rdquo; a person via the API. A HR admin at
+your organisation will have to use the web app to restore a person&rsquo;s account.</p>
+
+<h3 id="archiving-a-single-person-record">Archiving a single person record</h3>
+
+<blockquote>
+<p>Example of archiving a single person record</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Token token=abcd1234"</span> <span class="se">\</span>
+     -H <span class="s2">"Accept: application/vnd.api+json; version=2"</span> <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/vnd.api+json"</span> <span class="se">\</span>
+     -X DELETE <span class="se">\</span>
+     https://example.cognitohrm.com/api/people/42AUQ
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
+<span class="nb">require</span> <span class="s1">'uri'</span>
+
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s2">"https://example.cognitohrm.com/api/people/42AUQ"</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Delete</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">content_type</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Token token=abcd1234"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Accept"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json; version=2"</span>
+
+<span class="n">req_options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">use_ssl: </span><span class="n">uri</span><span class="p">.</span><span class="nf">scheme</span> <span class="o">==</span> <span class="s2">"https"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">start</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">hostname</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">,</span> <span class="n">req_options</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
+  <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># response.code</span>
+<span class="c1"># response.body</span>
+</code></pre>
+<h4 id="http-request">HTTP Request</h4>
+
+<p><code class="prettyprint">DELETE /api/people/&lt;PERSON_ID&gt;</code></p>
+
+<h3 id="archiving-multiple-people-in-a-batch-request">Archiving multiple people in a batch request</h3>
+
+<blockquote>
+<p>Example of archiving multiple people in one request</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -H <span class="s2">"Authorization: Token token=abcd1234"</span> <span class="se">\</span>
+     -H <span class="s2">"Accept: application/vnd.api+json; version=2"</span> <span class="se">\</span>
+     -H <span class="s2">"Content-Type: application/vnd.api+json"</span> <span class="se">\</span>
+     -X DELETE <span class="se">\</span>
+     https://example.cognitohrm.com/api/people/?ids<span class="o">=</span>42AUQ,17BCC
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
+<span class="nb">require</span> <span class="s1">'uri'</span>
+
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s2">"https://example.cognitohrm.com/api/people/?ids=42AUQ,17BCC"</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Delete</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">content_type</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Token token=abcd1234"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Accept"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"application/vnd.api+json; version=2"</span>
+
+<span class="n">req_options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">use_ssl: </span><span class="n">uri</span><span class="p">.</span><span class="nf">scheme</span> <span class="o">==</span> <span class="s2">"https"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">start</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">hostname</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">,</span> <span class="n">req_options</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
+  <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># response.code</span>
+<span class="c1"># response.body</span>
+</code></pre>
+<p>The unique ids for the people to be deleted should be passed as a list of unique
+ids with the <code class="prettyprint">ids</code> parameter to the URL.</p>
+
+<p>Note that if there is an error archiving any records, the entire batch operation
+will fail. Any errors encountered will be returned as an error object (see the
+<a href="#errors">errors section</a> below).</p>
+
+<h4 id="http-request">HTTP Request</h4>
+
+<p><code class="prettyprint">DELETE /api/people</code></p>
 
           <h1 id="errors">Errors</h1>
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<blockquote>
+<p>Example of an error object</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"pointer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/data/PERSON_ID/email"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email address is invalid"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email address 'joe' is not a valid email address"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"pointer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/data/PERSON_ID"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Person not found"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The person with id PERSON_ID could not be found."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The WorkCompass API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -291,39 +705,15 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>Bad Request &ndash; There was a problem with your request. Please see the returned error messages.</td>
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>Unauthorized &ndash; Your API key is incorrect.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+<td>Not Found &ndash; The specified resource could not be found.</td>
 </tr>
 <tr>
 <td>500</td>
@@ -331,16 +721,18 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 <tr>
 <td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>Service Unavailable &ndash; We&rsquo;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
+
+<p>A <code class="prettyprint">400 Bad Request</code> response will include a JSON API error object in the format
+shown on the right.</p>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
           </div>
       </div>
     </div>
