@@ -154,6 +154,20 @@ exception of archiving people records which does not require a JSON payload).
   "data" : [
     {
       "type" : "people",
+      "id" : "17BCC",
+      "attributes" : {
+        "email" : "rick@example.com",
+        "location" : "Anywhere/Anytime",
+        "authorisation" : "manager",
+        "division" : "Garage",
+        "function" : "Scientist",
+        "name" : "Rick Sanchez",
+        "job-title" : "Mad Scientist",
+        "job-description" : "Doing mad science"
+      }
+    },
+    {
+      "type" : "people",
       "id" : "42AUQ",
       "attributes" : {
          "name" : "Morty Smith",
@@ -172,20 +186,6 @@ exception of archiving people records which does not require a JSON payload).
             "id" : "17BCC"
           }
         }
-      }
-    },
-    {
-      "type" : "people",
-      "id" : "29BVD",
-      "attributes" : {
-        "email" : "rick@example.com",
-        "location" : "Anywhere/Anytime",
-        "authorisation" : "manager",
-        "division" : "Garage",
-        "function" : "Scientist",
-        "name" : "Rick Sanchez",
-        "job-title" : "Mad Scientist",
-        "job-description" : "Doing mad science"
       }
     }
   ]
