@@ -133,7 +133,8 @@ exception of archiving people records which does not require a JSON payload).
          "function" : "Teenager",
          "location" : "Anywhere/Anytime",
          "job-title" : "Sidekick",
-         "job-description" : "Reluctantly follow Rick"
+         "job-description" : "Reluctantly follow Rick",
+         "bio" : "Morty's bio"
       },
       "relationships" : {
          "manager" : {
@@ -163,7 +164,8 @@ exception of archiving people records which does not require a JSON payload).
         "function" : "Scientist",
         "name" : "Rick Sanchez",
         "job-title" : "Mad Scientist",
-        "job-description" : "Doing mad science"
+        "job-description" : "Doing mad science",
+        "bio" : "Rick's bio"
       }
     },
     {
@@ -177,7 +179,8 @@ exception of archiving people records which does not require a JSON payload).
          "function" : "Teenager",
          "location" : "Anywhere/Anytime",
          "job-title" : "Sidekick",
-         "job-description" : "Reluctantly follow Rick"
+         "job-description" : "Reluctantly follow Rick",
+          "bio" : "Morty's bio"
       },
       "relationships" : {
         "manager" : {
@@ -213,6 +216,7 @@ attributes.location | Person's physical location |
 attributes.function | Person's job function |
 attributes.job-title | Person's job title |
 attributes.job-description | Longer description of person's job |
+attributes.bio | Biography for the user |
 relationships.manager.data.type | must be set to `people` | if specifying relationship
 relationships.manager.data.id | Unique id for this person's manager (e.g manager's employee number) | if specifying relationship
 
