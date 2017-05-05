@@ -1,6 +1,6 @@
 Steps to release new API documentation
 
-* Edit `source/index.html.md` (maybe also `source/errros/_errors.md`)
+* Edit `source/index.html.md` (maybe also `source/includes/_errors.md`)
 * Commit and push your changes
 * Run `deploy.sh` which copies the html and assets to the Rails project
 * Switch to the Rails project and commit the new html and assets

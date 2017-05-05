@@ -8,6 +8,7 @@ language_tabs:
 toc_footers:
 
 includes:
+  - success
   - errors
 
 search: true

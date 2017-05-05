@@ -1,4 +1,4 @@
-# Errors
+# Errors codes
 
 > Example of an error object
 
@@ -33,4 +33,3 @@ Error Code | Meaning
 
 A `400 Bad Request` response will include a JSON API error object in the format
 shown on the right.
-
